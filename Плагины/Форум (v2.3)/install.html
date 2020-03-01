@@ -1,0 +1,98 @@
+<html>
+<head>
+<title>SE vBulletin/phpBB2 Integration</title>
+<style type='text/css'>
+body, td, div {
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+	font-size: 10pt;
+	color: #333333;
+	line-height: 16pt;
+}
+h1 {
+	font-size: 16pt;
+	margin-bottom: 4px;
+}
+h2 {
+	font-size: 12pt;
+	margin-bottom: 4px;
+}
+.box {
+	padding: 10px 13px 10px 13px; 
+	border: 1px dashed #BBBBBB;
+}
+ul {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+input.text {
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+}
+input.button {
+	background: #EEEEEE;
+	font-weight: bold;
+	padding: 2px;
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+}
+form {
+	margin: 0px;
+}
+a:link { color: #2078C8; text-decoration: none; }
+a:visited { color: #2078C8; text-decoration: none; }
+a:hover { color: #3FA4FF; text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>vBulletin/phpBB2 Integration Tutorial</h1>
+
+<div style='width: 600px;'>
+This tutorial will show you how to integrate a NEW (freshly-installed) copy of vBulletin or phpBB2 with SocialEngine. Be sure to make a COMPLETE backup of your SE installation, including all your files and your MySQL database. Follow these steps carefully to ensure a proper integration:
+<br><br>
+
+1. Signup a new user on SocialEngine. This user should have the same username/password that will be used for the administrator account on your forums. For example, you could give it a username of "forumadmin".
+<br><br>
+
+2. Install vBulletin or phpBB2 on the same domain (or subdomain) as SE. For example, if your SE is at http://www.yourdomain.com/social/ then install your forum at something like http://www.yourdomain.com/forum/
+<br>
+When you install your forum, make SURE that the username/password of your admin account is the same as the username/password you created on SE in step 1 above.
+<br><br>
+
+3. Disable the following parts of your forum:
+<br><br>
+
+<b>If you have vBulletin</b>
+<ul>
+<li>Disable user registration (under vBulletin Options -> User Registration Options)</li>
+<li>Disable user login (delete login.php and edit styles/templates to remove login link from menu)</li>
+</ul>
+
+<b>If you have phpBB</b>
+<ul>
+<li>Disable user registration (delete /includes/usercp_register.php and edit styles/templates to remove register link from menu)</li>
+<li>Disable user login (delete login.php and edit styles/templates to remove login link from menu)</li>
+<li>Disable user's ability to modify their username (in General Admin -> Configuration within admin control panel)</li>
+</ul>
+
+<br>
+
+Note: For phpBB forums, the control panel doesn't allow you to turn off registration, login, and email address changes, so you will need to delete the files that are used for these tasks.
+<br><br>
+
+4. Upload the files in this zip to your SE installation, login to your SE admin panel, go to the View Plugins page, and install the forum plugin. Make sure to delete admin/install_forum.php when you are done.
+<br><br>
+
+5. Click on the "Global Forum Settings" and select the type of forum you have created. Also BE SURE to specify the relative path from your SE installation directory to your forum installation directory.
+<br><br>
+
+6. Your forum should be up and running! The next time your SocialEngine users visit your site, a forum user will be created with the same username. Please note that some options in the message board's admin panel (such as email verification, etc) will not work due to the fact that the users signup/login via SE. Also, please note the following: DO NOT DELETE THE SE ADMIN USER! Because of the way integration occurs, if you delete your SE admin user, your forum admin user will also be deleted. You will no longer be able to access your forum's control panel!
+<br><br>
+
+</div>
+
+</div>
+
+</body>
+</html>
+
+
+

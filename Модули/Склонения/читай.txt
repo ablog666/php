@@ -1,0 +1,59 @@
+Для вывода в виде
+1 голос, 2 голоса, 5 голосов, ...
+1 раз, 2 раза, ...
+1 друг, 2 друга, 5 друзей ...
+1 челове, 2 человека
+
+Закачиваем все в templates
+hack_sloneniya.zip
+
+В файле rate.tpl
+вместо " голосов" (без кавычек)
+вставляем
+{include file='golos_golosa_golosov.tpl'}
+
+В файле profile.tpl
+вместо " {$profile17}"
+вставляем
+{include file='raz_raza.tpl'}
+
+вместо " {$profile19}"
+вставляем
+{include file='drug_druga_druzei.tpl'}
+
+В файле home.tpl
+вместо " {$home36}"
+вставляем
+{include file='drug_druga_druzei_home.tpl'}
+
+вместо " {$home13}"
+вставляем
+{include file='chelovek_cheloveka.tpl'}
+
+вместо " {$home19}"
+вставляем
+{include file='drug_druga_druzei.tpl'}
+
+Для вывода в виде
+День рождения: 11.5.1986 (21 год)
+День рождения: 11.5.1983 (24 года)
+День рождения: 11.5.1982 (25 лет)
+
+
+
+в файле profile.tpl
+({$datetime->age($tabs[tab_loop].fields[field_loop].field_value)} {$profile37})
+заменить на:
+{include file='god_let_goda.tpl'}
+
+в файле profile.tpl
+({$datetime->age($tabs[tab_loop].fields[field_loop].field_value)} {$profile37})
+заменить на:
+{include file='god_let_goda.tpl'}
+
+Участников - участник - участника
+
+В файле user_group.tpl
+вместо " {$user_group10}" (без кавычек)
+вставляем
+{include file='uchastnikov-uchastnik-uchastnika.tpl'}

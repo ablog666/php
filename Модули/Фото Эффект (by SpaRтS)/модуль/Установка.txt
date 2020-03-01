@@ -1,0 +1,40 @@
+	Установка модуля Фото Эффекты
+
+1. Залить все файлы из папки files в корень сайта.
+
+2. В базе se_users создать:
+
+	- user_photoef int(15) по умолчанию 0
+	- user_points int(15) по умолчанию 0
+
+3. В profile.tpl
+
+
+
+<IMG SRC='{$owner->user_photo("./images/nophoto.gif")}' ALT ='' />
+
+	Заменить на:
+
+
+{if $owner->user_info.user_photoef > 0}
+<div style="background-image: url({$owner->user_photo("./images/nophoto.gif")}); width: 200px; height: {$misc->photo_size($owner->user_photo("./images/nophoto.gif"),'200','999','h')}px;" align="center">
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://pdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" id="lecteur" width="200" height="{$misc->photo_size($owner->user_photo("./images/nophoto.gif"),'200','999','h')}"><param name="wmode" value="transparent">
+<param name="movie" value="images/effects/eff_{$owner->user_info.user_photoef}.swf">
+<param name="allowScriptAccess" value="never">
+<embed allowscriptaccess="never" type="application/x-shockwave-flash" src="images/effects/eff_{$owner->user_info.user_photoef}.swf" wmode="transparent" width="200" height="{$misc->photo_size($owner->user_photo("./images/nophoto.gif"),'200','999','h')}">
+</object></div>
+{/if}
+
+
+{if $owner->user_info.user_photoef == 0}
+<IMG SRC='{$owner->user_photo("./images/nophoto.gif")}' ALT ='' />
+{/if}
+
+4. Скрипт готов к использованию!
+
+
+	- - - - - - - - - - - -
+	Автор:  SpaRтS 
+	E-mail: Future_Studio@mail.ru
+	ICQ:	394-770-281
+	- - - - - - - - - - - -

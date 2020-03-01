@@ -1,0 +1,102 @@
+
+1. Залить все файлы из папки files в корень сайта
+
+2. Запустите файл install_mathes.php
+
+3. Откройте header.php
+
+	Вставте код:
+
+$total_my_matches = $database->database_num_rows($database->database_query("SELECT sent_id FROM se_matches_sent WHERE sent_view = 1 AND sent_user_id='".$user->user_info[user_id]."'"));
+$smarty->assign('total_my_matches', $total_my_matches);  
+
+
+4. Откройте header.tpl
+
+	Вставте код:
+
+<li><a href='matches.php'>Предложения{if $total_my_matches != 0} <b>({$total_my_matches})</b>{/if}</a></li>
+
+
+5. Откройте profile.php
+
+	Вставте код:
+
+$matches = $database->database_num_rows($database->database_query("SELECT matches_id FROM se_matches WHERE matches_user_id='".$owner->user_info[user_id]."' AND matches_act = 0"));
+
+$query = "SELECT * FROM `se_matches` WHERE matches_user_id = ".$owner->user_info[user_id]."";
+$res = mysql_query($query);
+while($row = mysql_fetch_array($res))
+{
+$smarty->assign('matches_body', $row['matches_body']);
+$smarty->assign('matches_act', $row['matches_act']);
+}
+$smarty->assign('matches', $matches);
+
+
+$m = $_GET['m']; 
+$smarty->assign('m', $m);
+
+
+
+
+
+
+6. Откройте profile.tpl
+
+	Вставте код:
+
+{if $matches != 0}
+  <a name="matches"></a>
+  <div id="matches" class="flexOpen">
+   <div class="bOpen">
+    <div class="flexHeader clearFix" onclick="return collapseBox('matches', this, 0.5, 0.25)" onfocus="blur()">
+     <div><h2>Предложение</h2></div>
+     {if $user->user_info.user_id == $owner->user_info.user_id}<div class="flexEdit">
+
+      <a href="/matches.php" onclick="event.cancelBubble = true; " title="">ред.</a>
+     </div>{/if}
+     <img id="progr8" style="float: right; display: none; margin-top: 3px;" src="/images/upload.gif">
+    </div>
+   </div>
+   <div class="c">
+
+     <div class="r">
+      <div style="padding: 10px;">
+
+{if $m == 1}<div id='msg'>{$owner->user_info.user_username} будет оповещен о Вашем согласии.</div>{/if}
+{if $m == 2}<div id='msg'>Вы уже давали согласие на это предложение.</div>{/if}
+{if $m == 3}<div id='msg'>Ваше согласие отменено.</div>{/if}
+{if $m == 4}<div id='msg'>Ваш отказ принят.</div>{/if}
+        <div style="">
+        <b style="color: rgb(54, 99, 142);">Хотели бы Вы</b> {$matches_body}?
+        </div>
+        <div>
+         <ul class="nNav" style="padding: 15px 0px 0px 25px; height: 25px;">
+          <li>
+           <b class="nc"><b class="nc1"><b></b></b><b class="nc2"><b></b></b></b>
+           <span class="ncc"><a href="matches.php?act=a_sent&id={$owner->user_info.user_id}&dec=0">Нет</a></span>
+           <b class="nc"><b class="nc2"><b></b></b><b class="nc1"><b></b></b></b>
+          </li>
+
+          <li>
+           <b class="nc"><b class="nc1"><b></b></b><b class="nc2"><b></b></b></b>
+           <span class="ncc"><a href="matches.php?act=a_sent&id={$owner->user_info.user_id}&dec=1"><b>Да</b>, конечно</a></span>
+           <b class="nc"><b class="nc2"><b></b></b><b class="nc1"><b></b></b></b>
+          </li>
+         </ul>
+        </div>
+       </div>
+
+      </div>
+
+   </div>
+  </div>
+
+{/if}
+
+7. Проверьте!
+
+	profile_5 - Город
+	profile_6 - Пол
+	profile_9 - Дата рождения

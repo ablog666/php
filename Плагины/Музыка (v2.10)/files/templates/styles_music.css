@@ -1,0 +1,82 @@
+div#musicedit {
+	margin:0 auto;
+	width:500px;
+	border:1px solid #000;
+}
+div.musiceditheader {
+	border-bottom:1px solid #000;
+}
+div.column1 {
+	float:left;
+	width:30px;
+}
+div.column2 {
+	margin-left:10px;
+	float:left;
+	width:300px;
+	text-align:center;
+}
+div.column3 {
+	width:50px;
+	float:left;
+}
+div.column4 {
+	width:50px;
+	float:left;
+	text-align:center;
+}
+div.column5 {
+	width:50px;
+	float:right;
+}
+div.musicfooter {
+	clear:both;
+}
+
+table.music_edit_table {
+	width:100%;
+	border: 1px solid #CCCCCC;
+	border-bottom: none;
+}
+td.music_header {
+	padding: 4px 5px 5px 6px;
+	border: none;
+	font-weight: bold;
+	background-image: url(../images/header.gif);
+	background-repeat: repeat-x;
+	color: #333333;
+}
+td.music_list {
+	background: #FFFFFF;
+	border-bottom: 1px solid #DDDDDD;
+	padding: 5px;
+	vertical-align: middle;
+	text-align:left;
+}
+td.music_list_track {
+	background: #FFFFFF;
+	border-top: 1px solid #DDDDDD;
+	padding: 5px;
+	vertical-align: middle;
+	text-align:center;
+}
+td#music_title {
+	text-align:left;
+}
+td#music_track {
+	text-align:center;
+}
+td#music_order {
+	text-align:center;
+}
+td#music_options {
+	text-align:left;
+}
+div.music_button {
+	float:left;
+}
+div.music_title {
+	margin-left:10px;
+	margin-top:1px;
+	float:left;
+}

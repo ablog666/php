@@ -1,0 +1,191 @@
+<html>
+<head>
+<title>SocialEngine Album Plugin Version Changes</title>
+<style type='text/css'>
+body, td, div {
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+	font-size: 10pt;
+	color: #333333;
+	line-height: 16pt;
+}
+h1 {
+	font-size: 16pt;
+	margin-bottom: 4px;
+}
+h2 {
+	font-size: 12pt;
+	margin-bottom: 4px;
+}
+.box {
+	padding: 10px 13px 10px 13px; 
+	border: 1px dashed #BBBBBB;
+}
+ul {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+input.text {
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+}
+input.button {
+	background: #EEEEEE;
+	font-weight: bold;
+	padding: 2px;
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+}
+form {
+	margin: 0px;
+}
+a:link { color: #2078C8; text-decoration: none; }
+a:visited { color: #2078C8; text-decoration: none; }
+a:hover { color: #3FA4FF; text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>SocialEngine Album Plugin Version Changes</h1>
+This file contains a list of each file that was modified in each new version as well 
+as any language variables that were added or changed.
+
+<br><br>
+
+<h2>Version 2.50</h2>
+
+<ol>
+<li>functions_album.php - Fixed issue with certain images not being returned in results.</li>
+</ol>
+
+<br><br>
+
+<h2>Version 2.40</h2>
+
+<ol>
+<li>album.php - Fixed privacy error message bug.</li>
+<li>album_file.php - Fixed privacy error message bug.</li>
+<li>header_album.php - Fixed minor security bug.</li>
+<li>user_album.php - Fixed bug when admin allows "unlimited" space.</li>
+<li>user_album_upload.php - Fixed bug when admin allows "unlimited" space.</li>
+<li>admin/admin_header_album.php - Fixed minor security bug.</li>
+</ol>
+
+<br><br>
+
+<h2>Version 2.30</h2>
+
+<ol>
+<li>templates/admin_levels_albumsettings.tpl - Fixed missing header for "Allow Custom CSS Styles?".</li>
+</ol>
+
+<br><br>
+
+<h2>Version 2.20</h2>
+
+<ol>
+<li>templates/albums.tpl - Fixed problem with last update date when album hasn't been updated.</li>
+<li>templates/user_album.tpl - Fixed problem with last update date when album hasn't been updated.</li>
+<li>templates/user_album_friends.tpl - Fixed problem with last update date when album hasn't been updated.</li>
+<li>include/class_album.php - Albums of unconfirmed friends no longer display on the "My Friends' Albums" page.</li>
+</ol>
+
+<br><br>
+
+<h2>Version 2.10</h2>
+
+<ol>
+<li>album.php - Fixed privacy bug, error page language variable bug.</li>
+<li>album_file.php - Fixed privacy/comment bug.</li>
+<li>user_album_comments.php - Fixed redirection bug when album_id was incorrectly specified.</li>
+<li>user_album_edit.php - Fixed redirection bug when album_id was incorrectly specified.</li>
+<li>user_album_update.php - Fixed redirection bug when album_id was incorrectly specified.</li>
+<li>user_album_upload.php - Fixed redirection bug when album_id was incorrectly specified.</li>
+<li>templates/album.tpl - Fixed issue with multiple album pages.</li>
+<li>templates/album_file.tpl - Posting comments didn't work when comment security code was turned off.</li>
+</ol>
+
+<br><br>
+
+<h2>Version 2.00</h2>
+<br>
+The upgrade to 2.00 involves replacing all of your PHP, TPL, and CSS files. This means that you will lose any changes you have made to these files. Unfortunately there is no easy way to avoid this since we've made so many changes to the platform. If possible, make a note about each change you've made in your current installation so that you can reapply them after the upgrade process. 
+
+<br><br><br>
+
+<h2>Version 1.40</h2>
+
+<ol>
+<li>user_albums_add.php - Album titles and descriptions now censor banned words.</li>
+<li>user_albums_edit.php - Album titles and descriptions now censor banned words.</li>
+<li>user_albums_update.php - Photo titles and descriptions now censor banned words.</li>
+</ol>
+
+<br><br>
+
+<h2>Version 1.30</h2>
+
+<ol>
+<li>album.php - Added pagination to photo albums.</li>
+<li>user_albums_add.php - Now user's last update date is updated when albums are created.</li>
+<li>user_albums_edit.php - Now user's last update date is updated when albums are edited, and line breaks in album description work.</li>
+<li>user_albums_update.php - Now user's last update date is updated when photos are edited, media comments are properly deleted, and line breaks in media descriptions work.</li>
+<li>user_albums_upload.php - Now user's last update date is updated when photos are uploaded.</li>
+<li>templates/album.tpl - Added pagination to photo albums.</li>
+<li>templates/album_file.tpl - Fixed photo dimension problem.</li>
+<li>templates/user_albums_comments.tpl - Fixed photo dimension problem.</li>
+<li>templates/user_albums_friends.tpl - Added language translation.</li>
+<li>templates/admin_viewalbums.tpl - Allowed admin to view private albums as if logged in as user.</li>
+<li>admin/admin_viewalbums.php - Allowed admin to view private albums as if logged in as user.</li>
+<li>lang/lang_english_album.php<br>
+<blockquote>
+$album[9] = "Last Page";<br>
+$album[10] = "viewing photo";<br>
+$album[11] = "of";<br>
+$album[12] = "viewing photos";<br>
+$album[13] = "Next Page";<br>
+</blockquote>
+</li>
+</ol>
+
+<br><br>
+
+<h2>Version 1.20</h2>
+
+<ol>
+<li>album.php</li>
+<li>album_file.php</li>
+<li>albums.php</li>
+<li>templates/album_file.tpl</li>
+<li>lang/lang_english_album.php<br>
+<blockquote>
+$album[8] = "You must be logged in to view this page. &lt;a href='login.php'&gt;Click here&lt;/a&gt; to login.";<br>
+$album_file[18] = "You must be logged in to view this page. &lt;a href='login.php'&gt;Click here&lt;/a&gt; to login.";<br>
+$albums[7] = "You must be logged in to view this page. &lt;a href='login.php'&gt;Click here&lt;/a&gt; to login.";
+</blockquote>
+</li>
+</ol>
+
+<br><br>
+
+<h2>Version 1.10</h2>
+
+<ol>
+<li>user_albums_delete.php</li>
+<li>templates/user_albums_upload.tpl</li>
+<li>lang/lang_english_album.php<br>
+<blockquote>
+$user_albums_upload[9] = "You have";<br>
+$user_albums_upload[17] = "MB of free space remaining.&lt;br&gt;You may upload files of the following types:";<br>
+$user_albums_upload[18] = "&lt;br&gt;You may upload files with sizes up to";<br>
+$user_albums_upload[19] = "KB.";
+</blockquote>
+</li>
+</ol>
+
+
+<br>
+©2007 Webligo Developments
+
+</body>
+</html>
+
+
+

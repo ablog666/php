@@ -1,0 +1,80 @@
+<html>
+<head>
+<title>SocialEngine Music Plugin Version Changes</title>
+<style type='text/css'>
+body, td, div {
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+	font-size: 10pt;
+	color: #333333;
+	line-height: 16pt;
+}
+h1 {
+	font-size: 16pt;
+	margin-bottom: 4px;
+}
+h2 {
+	font-size: 12pt;
+	margin-bottom: 4px;
+}
+.box {
+	padding: 10px 13px 10px 13px; 
+	border: 1px dashed #BBBBBB;
+}
+ul {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+input.text {
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+}
+input.button {
+	background: #EEEEEE;
+	font-weight: bold;
+	padding: 2px;
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+}
+form {
+	margin: 0px;
+}
+a:link { color: #2078C8; text-decoration: none; }
+a:visited { color: #2078C8; text-decoration: none; }
+a:hover { color: #3FA4FF; text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>SocialEngine Music Plugin Version Changes</h1>
+This file contains a list of each file that was modified in each new version as well 
+as any language variables that were added or changed.
+
+<br><br>
+
+<h2>Version 2.10</h2>
+
+<ol>
+<li>user_music_upload.php - Added basic uploader link.</li>
+<li>user_music_upload.php - Updated basic uploader to show loading icon when uploading a file.</li>
+<li>user_music_upload.php - Updated basic uploader to display message when uploading a file.</li>
+<li>user_music_upload.php - Added loading icon to applet load div.</li>
+<li>user_music_upload.php - Changed Safari users to Basic Uploader</li>
+<li>footer_music.php - Fixed bug with music player being displayed when user did not have music.</li>
+<li>include/class_music.php - Now checks for empty string for song artist/title, and uses filename if found.</li>
+<li>profile.php - Changed default skin to Basic Playlist</li>
+<li>lang/lang_english_music.php<br>
+<blockquote>
+$user_music_upload[18] = "If the file uploader does not show up after 10-15 seconds, &lt;a href=\"#\" onclick=\"javascript:showBasic(); return false;\"&gt;click here&lt;/a&gt; to use the basic file uploader";<br/>
+$user_music_upload[19] = "&lt;img src='images/icons/music_working.gif' style='vertical-align:middle'&ht;&nbsp;Please wait while the file upload applet loads";<br/>
+$user_music_upload[20] = "&nbsp;Your song is uploading, please do not leave this page. You will be notified when it is complete.";<br/>
+$user_music_upload[21] = "Upload Song";
+</blockquote>
+</li>
+</ol>
+
+<br>
+�2007 Webligo Developments
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,75 @@
+	Установка модуля Рейтинг.
+
+1. Залить все файлы из папки files в корень сайта.
+
+2. В базе se_users создать:
+
+	- user_rate int(15) по умолчанию 0
+	- user_points int(15) по умолчанию 0
+	- total_rate int(15) по умолчанию 0
+
+3. В profile.php
+
+	Вставить код:
+
+
+$total_rate = count(0)+$profile_percent+$owner->user_info[user_rate]-1;
+$database->database_query("UPDATE se_users SET total_rate = ".$total_rate."  WHERE user_id = ".$owner->user_info[user_id]."");
+$smarty->assign('total_rate', $total_rate);  
+
+
+
+
+4. В profile.tpl
+ 
+	Вставить код:
+
+
+	{if $total_rate > 100}
+	{if $total_rate < 900}
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0px;">
+<tr>
+<td style="border-top:1px solid #edcf0c;  background-color: #f5ebbb;" height="16px" valign="middle" align="left"><a style='text-decoration:none' href='rate.php?user_id={$owner->user_info.user_id}'><div  style="position:absolute; float:right; overflow:visible; color: #A9A26C; width:200px; text-align:center; font-family: arial, serif; line-height:16px">{$total_rate}</div></a><table width="{$owner->user_info.user_rate|truncate:2:true}%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td style="background-color: #f0e39a;  font-weight:bold;" height="16px" valign="middle" align="right"></td>
+</tr>
+</table>
+  </td>
+ </tr>
+<tr><td height=7px></td></tr>
+</table>
+{else}
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0px;">
+<tr>
+<td style="border-top:1px solid #edcf0c;  background-color: #F3EACB;" height="16px" valign="middle" align="left"><a style='text-decoration:none' href='rate.php?user_id={$owner->user_info.user_id}'><div style="position:absolute; float:right; overflow:visible; color: #A9A26C; width:200px; text-align:center; font-family: arial, serif; line-height:16px">{$total_rate}</div></a><table width="98%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td style="background-color: #E1D7A2;  font-weight:bold;" height="16px" valign="middle" align="right"></td>
+</tr>
+</table>
+  </td>
+ </tr>
+<tr><td height=7px></td></tr>
+</table>
+	{/if}
+	{else}
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0px;">
+<tr>
+<td style="border-top:1px solid #c0ccd9; background-color: #eeeeee;" height="16px" valign="middle" align="left"><a style='text-decoration:none' href='rate.php?user_id={$owner->user_info.user_id}'><div style="position:absolute; float:right; overflow:visible; color: #8ba1bc; width:200px; text-align:center; line-height:16px">{$total_rate}%</div></a><table width="{$total_rate}%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td style="background-color: #dae2e8; color: #8ba1bc; font-weight:bold;" height="16px" valign="middle" align="right"></td>
+</tr>
+</table>
+  </td>
+ </tr>
+<tr><td height=7px></td></tr>
+</table>
+	{/if}
+
+5. Скрипт готов к использованию!
+
+
+	- - - - - - - - - - - -
+	Автор:  SpaRтS 
+	E-mail: Future_Studio@mail.ru
+	ICQ:	394-770-281
+	- - - - - - - - - - - -

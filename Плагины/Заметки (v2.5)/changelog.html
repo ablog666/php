@@ -1,0 +1,201 @@
+<html>
+<head>
+<title>SocialEngine Blog Plugin Version Changes</title>
+<style type='text/css'>
+body, td, div {
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+	font-size: 10pt;
+	color: #333333;
+	line-height: 16pt;
+}
+h1 {
+	font-size: 16pt;
+	margin-bottom: 4px;
+}
+h2 {
+	font-size: 12pt;
+	margin-bottom: 4px;
+}
+.box {
+	padding: 10px 13px 10px 13px; 
+	border: 1px dashed #BBBBBB;
+}
+ul {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+input.text {
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+}
+input.button {
+	background: #EEEEEE;
+	font-weight: bold;
+	padding: 2px;
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+}
+form {
+	margin: 0px;
+}
+a:link { color: #2078C8; text-decoration: none; }
+a:visited { color: #2078C8; text-decoration: none; }
+a:hover { color: #3FA4FF; text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>SocialEngine Blog Plugin Version Changes</h1>
+This file contains a list of each file that was modified in each new version as well 
+as any language variables that were added or changed.
+
+<br><br>
+
+<h2>Version 2.50</h2>
+
+<ol>
+<li>admin/admin_blog.php - Moved blog category management.</li>
+<li>admin/admin_levels_blogsettings.php - Moved blog category management.</li>
+<li>include/functions_blog.php - Fixed bug with searching through private entries.</li>
+<li>templates/admin_blog.tpl - Moved blog category management.</li>
+<li>templates/admin_levels_blogsettings.tpl - Moved blog category management.</li>
+<li>templates/styles_blog.css - Fixed minor CSS issue.</li>
+<li>lang/lang_english_blog.php<br>
+<blockquote>
+$admin_blog[15] = "Blog Entry Categories";<br>
+$admin_blog[16] = "If you want to allow your users to categorize their blog entries, create the categories below. This feature is useful if you want to list all your users' blog entries that  If you have no categories, your users will not be given the option of assigning a blog category.";<br>
+$admin_blog[17] = "Add Category";
+</blockquote>
+</li>
+</ol>
+
+<br><br>
+
+<h2>Version 2.40</h2>
+
+<ol>
+<li>header_blog.php - Fixed minor security bug.</li>
+<li>user_blog_preview.php - Enabled AJAX blog preview.</li>
+<li>admin/admin_header_blog.php - Fixed minor security bug.</li>
+<li>templates/blog.tpl - Replaced language variable.</li>
+<li>templates/blog_entry.tpl - Enabled AJAX blog preview.</li>
+<li>templates/user_blog_editentry.tpl - Enabled AJAX blog preview.</li>
+<li>templates/user_blog_newentry.tpl - Enabled AJAX blog preview.</li>
+</ol>
+
+<br><br>
+
+<h2>Version 2.30</h2>
+
+<ol>
+<li>templates/admin_viewblogs.tpl - Fixed blog entry date display format.</li>
+</ol>
+
+<br><br>
+
+<h2>Version 2.20</h2>
+
+<ol>
+<li>include/class_blog.php - Fixed bug with editing a blog entry's category.</li>
+<li>templates/styles.css - Fixed line spacing in blog entries.</li>
+</ol>
+
+
+<br><br>
+
+<h2>Version 2.10</h2>
+
+<ol>
+<li>blog.php - Fixed privacy/comment bug for blog entries.</li>
+<li>blog_entry.php - Fixed privacy/comment bug for blog entries.</li>
+<li>include/class_blog.php - Fixed comment bug for blog entries.</li>
+<li>templates/user_blog_edit.tpl - Fixed link to Blog Settings.</li>
+<li>templates/blog_entry.tpl - Fixed bug with comment posting when security image is off.</li>
+</ol>
+
+<br><br>
+
+<h2>Version 2.00</h2>
+
+<br>
+The upgrade to 2.00 involves replacing all of your PHP, TPL, and CSS files. 
+This means that you will lose any changes you have made to these files. 
+Unfortunately there is no easy way to avoid this since we've made so many 
+changes to the platform. If possible, make a note about each change you've made 
+in your current installation so that you can reapply them after the upgrade process.
+
+<br>
+
+<br><br>
+
+<h2>Version 1.50</h2>
+
+<ol>
+<li>user_blog_newentry.php - Bug Fix: Blog titles and entries escape single quotes for the database.</li>
+<li>user_blog_editentry.php - Bug Fix: Blog titles and entries escape single quotes for the database.</li>
+</ol>
+
+<br><br>
+
+<h2>Version 1.40</h2>
+
+<ol>
+<li>blog.php - Admin-specified number of entries per page now works properly.</li>
+<li>user_blog_newentry.php - Blog titles and entries now censor banned words, added filter for XSS protection.</li>
+<li>user_blog_editentry.php - Blog titles and entries now censor banned words, added filter for XSS protection.</li>
+<li>user_blog_preview.php - Blog titles and entries now censor banned words, added filter for XSS protection.</li>
+<li>include/class.inputfilter.php - Class to filter for XSS protection.</li>
+</ol>
+
+<br><br>
+
+<h2>Version 1.30</h2>
+
+<ol>
+<li>user_blog_newentry.php - Adding a blog entry now updates the user's last update date.</li>
+<li>user_blog_editentry.php - Editing a blog entry now updates the user's last update date.</li>
+<li>templates/blog_entry.tpl - Fixed photo dimension problem.</li>
+<li>templates/user_blog_comments.tpl - Fixed photo dimension problem.</li>
+<li>templates/blog.tpl - Linked blog entry titles to the blog entry page.</li>
+<li>templates/admin_viewblogs.tpl - Allowed admin to view private blog entries as if logged in as user.</li>
+<li>admin/admin_viewblogs.php - Allowed admin to view private blog entries as if logged in as user.</li>
+</ol>
+
+<br><br>
+
+<h2>Version 1.20</h2>
+
+<ol>
+<li>blog_entry.php - Blog entry views were not being updated</li>
+<li>templates/blog_entry.tpl - Untitled entries were displaying "$blog_entry5" instead of "Untitled"</li>
+<li>templates/user_blog_image.tpl - FCKEditor image insert dialog box was displaying "$user_blog_image2" instead of "Upload Image"</li>
+</ol>
+
+<br><br>
+
+<h2>Version 1.10</h2>
+
+<ol>
+<li>blog.php</li>
+<li>blog_category.php</li>
+<li>blog_entry.php</li>
+<li>templates/admin_blog.tpl</li>
+<li>templates/user_blog_editentry.tpl</li>
+<li>templates/user_blog_newentry.tpl</li>
+<li>lang/lang_english_blog.php<br>
+<blockquote>
+$blog[13] = "You must be logged in to view this page. &lt;a href='login.php'&gt;Click here&lt;/a&gt; to login.";<br>
+$blog_category[11] = "You must be logged in to view this page. &lt;a href='login.php'&gt;Click here&lt;/a&gt; to login.";<br>
+$blog_category[12] = "An Error Has Occurred";<br>
+$blog_entry[14] = "You must be logged in to view this page. &lt;a href='login.php'&gt;Click here&lt;/a&gt; to login.";<br>
+</blockquote>
+</li>
+</ol>
+
+
+<br>
+©2007 Webligo Developments
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,121 @@
+Установка
+Закачиваем все из папки uploads на сервер далее заходив в админ панель - плагины - установить подарки
+После чего заходим в файл profile.php и перед
+
+// ASSIGN VARIABLES AND INCLUDE FOOTER
+
+
+вставляем следующее
+
+$gifts_per_page = 100;
+$gifts = new se_gifts();
+$where = "gifts_tuser_id='".$owner->user_info[user_id]."'";
+$sort="";
+$total_gifts=$gifts->gifts_user_total($where);
+// GET gifts ARRAY
+$gifts = $gifts->gifts_user_list(0, 5, $sort, $where);
+$smarty->assign('total_gifts', $total_gifts);
+$smarty->assign('gifts', $gifts);
+
+
+далее заходим в файл profile.tpl ищем
+
+{literal}
+
+и добавляем ниже
+
+<script type="text/javascript" src="./images/highslide/highslide-with-html.js"></script>
+<script type="text/javascript">    
+    hs.graphicsDir = './images/highslide/graphics/';
+    hs.outlineType = 'rounded-white';
+    hs.outlineWhileAnimating = true;
+</script>
+
+
+ищем дальше
+
+    {* SHOW ADD OR REMOVE FRIEND MENU ITEM *}
+    {if $friendship_allowed != 0 && $user->user_exists != 0}
+      {if $is_friend == TRUE}
+        <tr>
+        <td class='profile_menu1'><a href='user_friends_confirm.php?task=remove&user={$owner->user_info.user_username}&return_url={$url->url_create('profile', $owner->user_info.user_username)}'><img src='./images/icons/remove_friend16.gif' class='icon' border='0'>{$profile41}</a></td>
+        </tr>
+      {else}
+        <tr>
+        <td class='profile_menu1'><a href='user_friends_add.php?user={$owner->user_info.user_username}'><img src='./images/icons/addfriend16.gif' class='icon' border='0'>{$profile9}</a></td>
+        </tr>
+      {/if}
+
+
+вставляем ниже
+
+        <tr>
+        <td class='profile_menu1'><a href='user_gifts_add.php?user={$owner->user_info.user_username}' onclick="return hs.htmlExpand(this, {literal}{ objectType: 'iframe' }{/literal} )"><img src='./images/icons/gifts.gif' class='icon' border='0'>Сделать подарок</a></td>
+        </tr>
+
+ищем дальше 
+
+{* BEGIN COMMENTS *}
+
+
+вставляем выше
+
+{include file="gifts.tpl"}
+
+далее идем в файл user_home.tpl ищем там
+
+ {* SHOW MENU *}
+  <table class='home_menu' cellpadding='0' cellspacing='0' width='100%'>
+  <tr><td class='home_menu1'><a href='{$url->url_create('profile',$user->user_info.user_username)}'><img src='./images/icons/menu_profile.gif' class='icon' border='0'>{$user_home17}</a></td></tr>
+  <tr><td class='home_menu1'><a href='user_editprofile.php'><img src='./images/icons/menu_editprofile.gif' class='icon' border='0'>{$user_home19}</a></td></tr>
+  {if $setting.setting_connection_allow != 0}<tr><td class='home_menu1'><a href='user_friends.php'><img src='./images/icons/menu_friends.gif' class='icon' border='0'>{$user_home21}</a></td></tr>{/if}
+  <tr><td class='home_menu1'><a href='search_advanced.php'><img src='./images/icons/search16.gif' class='icon' border='0'>{$user_home27}</a></td></tr>
+  </table>
+
+и добовляем ниже 
+
+  <table cellpadding='0' cellspacing='0' width='100%'>
+  <tr><td class='home_header'>Поинты</td></tr>
+  <tr>
+  <td class='home_box'>
+Всего поинтов: {$user->user_info.user_points}<BR>
+<a href="user_points.php?task=buy">Купить поинты</a><BR>
+<a href="user_points.php?task=sell">Куда тратить поинты?</a><BR>
+<a href="user_points.php?task=status">Куда я потратил поинты?</a><BR>
+  </td>
+  </tr>
+  </table>
+
+
+теперь на нужно настроить биллинг
+
+билинг через Robox 
+
+ Установка
+1) Зарегистрируйтесь на сайте http://roboxchange.net как продавец указав валюту, которая эквивалентна основной валюте Вашего магазина.
+2) На сайте http://roboxchange.net в разделе "Администрирование" укажите:
+   "пароль #1" любой
+   "пароль #2" любой
+   "Result URL" http://ваш-сайт/robox.php
+   "метод отсылки в Result URL" POST
+   "Success URL" http://ваш-сайт/user_point.php?task=buy&success
+   "метод отсылки в Success URL" POST
+   "Fail URL" http://ваш-сайт/user_point.php?task=buy&fail
+   "метод отсылки в Fail URL" POST
+3) После чего заходим в файл include/billing.php и настраиваем там.
+
+
+биллинг через russianbilling.com
+
+
+1) Регестрируемся на сайте http://russianbilling.com
+2) Добавляем новый сервис с такими настройками
+Статус: on
+Название: Ваше название
+Описание: Ваше описание
+Url: http://ваш_сайт/sms.php
+Адресс поддержки: Ваш адресс
+Ключ-пароль сервиса: Ваш пароль (Обязательно)
+MD5: по желанию (рекомендую)
+3) Заходим в файл include/billing.php и настраиваем там
+

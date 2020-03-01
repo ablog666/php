@@ -1,0 +1,56 @@
+1. Залить все файлы из папки files в корень сайта
+
+2. Запустите файл install_opinions.php
+
+3. Откройте header.php
+
+	Вставте код:
+
+$total_my_checkbox = $database->database_num_rows($database->database_query("SELECT checkbox_id FROM se_checkbox WHERE checkbox_user_id='".$user->user_info[user_id]."' AND checkbox_view=1"));
+$smarty->assign('total_my_checkbox', $total_my_checkbox); 
+
+4. Откройте header.tpl
+
+	Вставте код:
+
+<li><a href='opinions.php'>Мнения{if $total_my_checkbox != 0} <b>({$total_my_checkbox})</b>{/if}</a></li>
+
+
+5. Откройте profile.tpl
+
+	Вставте код:
+
+  {* OPINIONS FORM *}
+{if $owner->user_info.user_id == $user->user_info.user_id OR $is_friend == TRUE}
+  <div id="opinions" class="flexOpen">
+   <div class="bOpen">
+    <div class="flexHeader clearFix" onclick="return collapseBox('opinions', this, 0.5, 0.25)" onfocus="blur()">
+
+     <div><h2>Мнения</h2></div>
+     <div class="flexEdit">
+      <a href="./opinions.php?user={$owner->user_info.user_username}" onclick="event.cancelBubble = true; " title="">просмотр</a>
+     </div>
+    </div>
+   </div>
+   <div class="c" >
+    <div class="fSub clearFix">
+     <h3>{if $owner->user_info.user_id == $user->user_info.user_id}Мнения о Вас могут оставлять только Ваши друзья.{else}Ваше анонимное мнение или признание:{/if}</h3>
+    </div>
+   <div class="flexBox clearFix aPad">
+        <form action="user_opinions_add.php" name="postMessage" id="postMessage">
+         <input type="hidden" name="user" value="{$owner->user_info.user_username}"/>
+         <textarea onkeyup="utils.checkTextLength(4096, this.value, ge('textWarn'))" name="body" style="width:360px; height:60px" id="message_text"></textarea>
+        <div style="padding-top:5px; height:25px;">
+         <ul class='nNav'>
+     <li style="margin-left:0px">
+      <b class="nc"><b class="nc1"><b></b></b><b class="nc2"><b></b></b></b>
+      <span class="ncc"><a style="width:7.5em" href="javascript:document.postMessage.submit()">Отправить <b>анонимно</b></a></span>
+      <b class="nc"><b class="nc2"><b></b></b><b class="nc1"><b></b></b></b>
+     </li>
+         </ul>
+   </form>
+  </div>
+ </div>
+</div>
+{else}
+{/if}

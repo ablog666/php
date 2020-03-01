@@ -1,0 +1,94 @@
+1) Закиньте содержимое папки Upload в корень сайта 
+
+2) Открыть homе.php найти 
+
+// ASSIGN SMARTY VARIABLES AND INCLUDE FOOTER
+
+пере ним вставить 
+
+if( in_array('album', $global_plugins) )
+{
+  $resource = $database->database_query("
+    SELECT
+      se_media.*,
+      se_albums.album_id,
+      se_users.user_id,
+      se_users.user_username
+    FROM
+      se_media
+    LEFT JOIN
+      se_albums
+      ON se_albums.album_id=se_media.media_album_id
+    LEFT JOIN
+      se_users
+      ON se_users.user_id=se_albums.album_user_id
+    LEFT JOIN
+      se_levels
+      ON se_users.user_level_id=se_levels.level_id
+    WHERE
+      se_albums.album_search='1' OR
+      se_levels.level_album_search='0'
+    ORDER BY
+      media_date DESC
+    LIMIT
+      0,20
+  ");
+
+  $recent_photos = array();
+  while( $row=$database->database_fetch_assoc($resource) )
+  {
+    if( !in_array($row['media_ext'], array('jpg', 'jpeg', 'gif', 'png', 'bmp', 'tif')) ) continue;
+
+    $row['media_path'] = $url->url_userdir($row['user_id']).$row['media_id'].'_thumb.'.$row['media_ext'];
+
+    $recent_photos[] = $row;
+  }
+
+  $smarty->assign('recent_photos', $recent_photos);
+
+3) Откурыть home.tpl  в нем найти   {* SHOW NETWORK STATISTICS *}
+
+выше вставить 
+  {if $user->user_exists != 0}
+  <table cellpadding='0' cellspacing='0' class='portal_table' width='100%'>
+   <tr><td class='header'>Новые фотки&nbsp;&nbsp;[<a href='/photo.php?do=new' >все</a>]</td></tr>
+  <tr>
+  <td class='portal_box'>
+  {literal}
+  <marquee behavior='scroll' align='left' valign='bottom' direction='up' width='175' height='100' scrollamount='1' scrolldelay='1' onmouseover='this.stop()' onmouseout='this.start()'>
+  <div align='left'><table cellpadding='4' cellspacing='0' width='100%'><tr>
+  <td style='filter:alpha(opacity=95)' onMouseOver='nereidFade(this,100,10,30)' onMouseOut='nereidFade(this,30,10,5)'>
+  {/literal}
+  {if !empty($recent_photos)}
+    {section name=recent_photos_loop loop=$recent_photos max=5}
+      {* START NEW ROW *}
+      {cycle name="startrow_recent_photos" values="<br>,,,,"}
+      <table cellpadding='0' cellspacing='0' align='center'><tr><td class='portal_member'>
+        {strip}
+     <a href='{$url->url_create("album_file", $recent_photos[recent_photos_loop].user_username, $recent_photos[recent_photos_loop].album_id,$recent_photos[recent_photos_loop].media_id)}' style="display:block;">
+          {if $recent_photos[recent_photos_loop].media_ext == "jpg" OR
+              $recent_photos[recent_photos_loop].media_ext == "jpeg" OR
+              $recent_photos[recent_photos_loop].media_ext == "gif" OR
+              $recent_photos[recent_photos_loop].media_ext == "png" OR
+              $recent_photos[recent_photos_loop].media_ext == "tif" OR
+              $recent_photos[recent_photos_loop].media_ext == "bmp"}
+              <img src='{$recent_photos[recent_photos_loop].media_path}' onMouseover="tip('Название:&nbsp;{$recent_photos[recent_photos_loop].media_title|truncate:15|default:"Untitled"}<br>Автор:&nbsp;{$recent_photos[recent_photos_loop].user_username|truncate:15}', 150)"; onMouseout="hidetip()"  class='photo' style="border:none; margin:3px;" border='0' width='{$misc->photo_size($recent_photos[recent_photos_loop].media_path,"150","150","w")}'>
+          {else}
+            <img src='./images/icons/file_big.gif' valign="center" class='photo' border='0' width='{$misc->photo_size("./images/icons/file_big.gif","150","150","w")}'>
+          {/if}
+        </a>
+        {/strip}
+      </td>
+      {* END ROW AFTER 5 RESULTS *}
+      </tr></table>
+     {cycle name="endrow_recent_photos" values=",,,,"}
+    {/section}
+    {else}
+    нет фоток.
+  {/if}
+  </td></tr></table></div>
+</marquee>
+</td>
+</tr>
+</table>
+  {/if}

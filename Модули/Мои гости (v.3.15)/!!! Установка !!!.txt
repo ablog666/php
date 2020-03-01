@@ -1,0 +1,126 @@
+Мои Гости версия 3.5
+Автор мода: Passtor.
+
+Установка:
+----------
+1. Заливаем все файлы на сайт.
+
+2. Запускаем файл установки через его через браузер. www.ваш_сайт.ru/install_myguests.php
+
+3. Удаляем файл: install_myguests.php
+
+4. Открываем файл: header.php
+   после строки: include "./include/functions_stats.php";
+   добавляем: include "./include/class_myguests.php";
+
+5. Теперь, чтобы отслеживать пользователей необходимо встaвить код:
+
+  a) в файле profile.php:
+
+   // MY GUESTS by PASSTOR
+   $myg = new MyGuests($owner->user_info[user_id], $user->user_info[user_id]);
+   $myg -> SetVisit(1);
+   $guest_array = $myg -> GetResults(1);
+   $smarty->assign('user_guests', $guest_array);
+   // END OF GUESTS by PASSTOR
+
+  b) в файле templates/profile.tpl:
+    после {* END STATS *}
+
+    добавляем:
+
+    {* BEGIN USER GUESTS *}
+    {if $user_guests!= 0}
+    <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
+    <tr><td class='header'> Гости ({$user_guests|@count})</td></tr>
+    <tr>
+    <td class='profile'>
+     {section name=user_guests_loop loop=$user_guests max=20}{if $smarty.section.user_guests_loop.rownum != 1}, {/if}<a href='{$url->url_create('profile',$user_guests[user_guests_loop])}'>{$user_guests[user_guests_loop]}</a>{/section}
+    </td>
+    </tr>
+    </table>
+    {/if}
+    {* END USER GUESTS *}
+
+
+  c) в файле album_file.php:
+
+   // MY GUESTS by PASSTOR
+   $myg = new MyGuests($owner->user_info[user_id], $user->user_info[user_id]);
+   $myg -> SetVisit(2);
+   // END OF GUESTS by PASSTOR
+
+
+
+    d) в файле blog.php:
+
+   // MY GUESTS by PASSTOR
+   $myg = new MyGuests($owner->user_info[user_id], $user->user_info[user_id]);
+   $myg -> SetVisit(3);
+   // END OF GUESTS by PASSTOR
+
+
+6. Открываем user_home.php
+   перед:
+   // ASSIGN SMARTY VARS AND INCLUDE FOOTER
+
+   ставим код:
+
+  // MY GUESTS by PASSTOR
+  $myg = new MyGuests($user->user_info[user_id]);
+
+  if($task == "resetguests")
+  {
+  	$myg -> Reset();
+	header("Location: user_home.php");
+	exit;
+  }
+  $guests = $myg -> GetResults();
+  $guest_array = array();
+
+  foreach($guests as $guest)
+  {
+		$my_guest = new se_user();
+		$my_guest -> user_info[user_id] = $guest[user_id];;
+		$my_guest -> user_info[user_username] = $guest[user_username];
+		$my_guest -> user_info[user_photo] = $guest[user_photo];
+		$guest_array[] = array('guest' => $my_guest, 'time' => $guest[time]);
+  }
+  $smarty->assign('myguests', $guest_array);
+  // END MY GUESTS
+
+
+7. Открываем файл templates/user_home.tpl
+   после:
+
+   {* BEGIN MIDDLE COLUMN *}
+   <td class='home_middle'>
+
+   ставим код:
+
+  {* SHOW RECENT GUESTS *}
+  <table cellpadding='0' cellspacing='0' width='100%'>
+  <tr><td class='home_header'>Мои гости{if $myguests|@count > 0} ({$myguests|@count}){/if}</td></tr>
+  <tr><td class='home_box'>
+  {if $myguests|@count > 0}
+    {section name=guests_loop loop=$myguests max=3}
+      {* START NEW ROW *}
+      {cycle name="startrow6" values="<table cellpadding='0' cellspacing='0' align='center'><tr>,,,,"}
+      <td class='portal_member'><a href='{$url->url_create('profile',$myguests[guests_loop].guest->user_info.user_username)}'>{$myguests[guests_loop].guest->user_info.user_username|truncate:15}<br><img src='{$myguests[guests_loop].guest->user_photo('./images/nophoto.gif')}' class='photo' width='{$misc->photo_size($myguests[guests_loop].guest->user_photo('./images/nophoto.gif'),'90','90','w')}' border='0'></a>
+      <br>{$datetime->time_since($myguests[guests_loop].time)}</td>
+      {* END ROW AFTER 5 RESULTS *}
+      {if $smarty.section.guests_loop.last == true}
+        </tr></table>
+      {else}
+        {cycle name="endrow6" values=",,,,</tr></table>"}
+      {/if}
+    {/section}
+  <div align='center'>
+  {if $myguests|@count > 3}[ <a href='user_guests.php'>Смотреть всех <b>{$myguests|@count}</b> гостей</a> ]&nbsp;&nbsp;{/if} [ <a href='user_home.php?task=resetguests'>{$user_home6}</a> ]
+  {else}
+    У вас пока нет гостей.
+  {/if}
+  </div>
+  </td>
+  </tr>
+  </table>

@@ -1,0 +1,109 @@
+<html>
+<head>
+<title>SocialEngine Event Plugin Version Changes</title>
+<style type='text/css'>
+body, td, div {
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+	font-size: 10pt;
+	color: #333333;
+	line-height: 16pt;
+}
+h1 {
+	font-size: 16pt;
+	margin-bottom: 4px;
+}
+h2 {
+	font-size: 12pt;
+	margin-bottom: 4px;
+}
+.box {
+	padding: 10px 13px 10px 13px; 
+	border: 1px dashed #BBBBBB;
+}
+ul {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+input.text {
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+}
+input.button {
+	background: #EEEEEE;
+	font-weight: bold;
+	padding: 2px;
+	font-family: "Trebuchet MS", tahoma, verdana, arial, serif;
+}
+form {
+	margin: 0px;
+}
+a:link { color: #2078C8; text-decoration: none; }
+a:visited { color: #2078C8; text-decoration: none; }
+a:hover { color: #3FA4FF; text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>SocialEngine Event Plugin Version Changes</h1>
+This file contains a list of each file that was modified in each new version as well 
+as any language variables that were added or changed.
+
+<br><br>
+
+
+<h2>Version 2.20</h2>
+
+<ol>
+<li>header_event.php - Fixed minor security bug.</li>
+<li>admin/admin_header_event.php - Fixed minor security bug.</li>
+<li>templates/event.tpl - Fixed stylistic issues.</li>
+<li>templates/profile_event.tpl - Calendar now works properly when SE is installed in a subdirectory and when adsense is at the top of the page.</li>
+<li>templates/profile_event_calendar.tpl - Fixed stylistic issues, bug with changing months.</li>
+<li>templates/user_event.tpl - Fixed stylistic issues, bug with clicking on event image.</li>
+<li>templates/user_event_browse.tpl - Fixed stylistic issues.</li>
+<li>templates/user_event_edit.tpl - Fixed incorrect link to invites page.</li>
+<li>templates/user_event_edit_members.tpl - Inserted language variable in file.</li>
+<li>lang_english_event.php - <br>
+<blockquote>
+$event[51] = "&amp;#0102;&amp;#0114;&amp;#0111;&amp;#0109;";<br>
+$profile_event_calendar[13] = "&amp;#0102;&amp;#0114;&amp;#0111;&amp;#0109;";<br>
+$user_event[36] = "&amp;#0102;&amp;#0114;&amp;#0111;&amp;#0109;";<br>
+$user_event_browse[22] = "&amp;#0102;&amp;#0114;&amp;#0111;&amp;#0109;";<br>
+$user_event_edit_members[43] = "Guest List";</li>
+</ol>
+
+<br><br>
+
+
+<h2>Version 2.10</h2>
+
+<ol>
+<li>event.php - Fixed privacy bug.</li>
+<li>event_album.php - Fixed privacy bug.</li>
+<li>event_album_file.php - Fixed privacy bug.</li>
+<li>event_comments.php - Fixed privacy bug.</li>
+<li>event_members.php - Fixed privacy bug.</li>
+<li>profile_event_calendar.php - Fixed date language bug.</li>
+<li>user_event.php - Fixed date language bug.</li>
+<li>user_event_browse.php - Future events (only) are displayed in ascending chronological order.</li>
+<li>user_event_rsvp.php - Fixed bug with recent activity action "attendevent".</li>
+<li>include/class_event.php - Fixed privacy bug.</li>
+<li>templates/event.tpl - "View All Comments" link only displays when there are comments.</li>
+<li>templates/profile_event_calendar.tpl - Fixed date language bug.</li>
+<li>templates/user_event.tpl - Fixed date language bug.</li>
+<li>lang_english_event.php - <br>
+<blockquote>
+$user_event_browse[4] = "Browse Upcoming Events";<br>
+$user_event_browse[10] = "No upcoming events were found in this category.";
+</blockquote>
+</li>
+</ol>
+
+
+<br>
+©2007 Webligo Developments
+
+</body>
+</html>
+
+
+

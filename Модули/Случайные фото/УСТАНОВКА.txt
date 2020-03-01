@@ -1,0 +1,99 @@
+Автор: Passtor (c) 2008 www.Passtor.ru
+[Hack] Last photos v1.0
+
+Установка
+1. Открываем файл profile.php, перед // ASSIGN VARIABLES AND INCLUDE FOOTER 
+вставляем код:
+
+// LAST USER'S UPLOADED PHOTOS by Passtor
+$output = 5;// Кол-во выводимых фотографий
+$t_uid = $owner -> user_info[user_id];
+$t_uname = $owner -> user_info[user_username];
+$result = $database -> database_query("SELECT `album_id` FROM `se_albums` WHERE `album_user_id` = '$t_uid'");
+$t_albums = array();
+$t_media_ids = array();
+$last_photos_array = array();
+
+while( list($t_albums[]) = $database -> database_fetch_array($result) )
+{
+}
+
+foreach($t_albums as $t_album)
+{
+		$result = $database -> database_query("SELECT `media_id`, `media_date` FROM `se_media` WHERE `media_album_id` = '$t_album'");
+
+		while( list($t_media_id, $t_media_date) = $database -> database_fetch_array($result) )
+		{
+				$t_media_ids[$t_media_date] = $t_media_id;
+		}
+}
+arsort($t_media_ids);
+reset($t_media_ids);
+$t_amount = count($t_media_ids);
+$output = ($t_amount < $output) ? $t_amount : $output;
+
+for($i = 0; $i < $output; $i++)
+{
+		$t_arr = array();
+		$t_id = current($t_media_ids);
+		$result = $database -> database_query("SELECT * FROM `se_media` WHERE `media_id` = '$t_id'");
+		$t_arr = $database -> database_fetch_assoc($result);
+		$t_arr['user_id'] = $t_uid;
+		$t_arr['user_username'] = $t_uname;
+		$t_arr['media_path'] = $url->url_userdir( $t_uid ).	$t_arr['media_id'].'.'.	$t_arr['media_ext'];
+    $last_photos_array[] = $t_arr;
+		@next($t_media_ids);
+}
+$smarty->assign('last_photos', $last_photos_array);
+// END OF LAST USER'S UPLOADED PHOTOS
+
+
+
+
+2. Открываем файл templates/profile.tpl, перед {* BEGIN PLUGIN RELATED PROFILE SECTIONS *} 
+вставляем код: 
+
+{* BEGIN LAST PHOTOS BY PASSTOR *}
+{if $last_photos|@count != 0}
+  <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
+  <tr><td class='header'>Новые фото</td></tr>
+  <tr>
+  <td class='profile'>
+    {section name=last_photos_loop loop=$last_photos}
+      {if $last_photos[last_photos_loop].media_title != ""}
+        {assign var="photo_title" value=$last_photos[last_photos_loop].media_title}
+      {else}
+        {assign var="photo_title" value=$header_album4}
+      {/if}
+      <table cellpadding='0' cellspacing='0'>
+      <tr>
+      <td width='1' style='padding: 5px 5px 5px 0px;' valign='top'>
+          <a href='{$url->url_create("album_file", $last_photos[last_photos_loop].user_username, $last_photos[last_photos_loop].media_album_id,$last_photos[last_photos_loop].media_id)}' style="display:block;">
+          {if $last_photos[last_photos_loop].media_ext == "jpg" OR
+              $last_photos[last_photos_loop].media_ext == "jpeg" OR
+              $last_photos[last_photos_loop].media_ext == "gif" OR
+              $last_photos[last_photos_loop].media_ext == "png" OR
+              $last_photos[last_photos_loop].media_ext == "tif" OR
+              $last_photos[last_photos_loop].media_ext == "bmp"}
+            <img src='{$last_photos[last_photos_loop].media_path}' class='photo' style="border:none; margin:3px;" border='0' width='{$misc->photo_size($last_photos[last_photos_loop].media_path,"116","116","w")}'>
+          {else}
+            <img src='./images/icons/file_big.gif' valign="center" class='photo' border='0' width='{$misc->photo_size("./images/icons/file_big.gif","96","96","w")}'>
+          {/if}
+        </a>
+      </td>
+      <td valign='top' style='padding: 2px 0px 0px 0px;'>
+      <b><a href='{$url->url_create("album_file", $last_photos[last_photos_loop].user_username, $last_photos[last_photos_loop].media_album_id,$last_photos[last_photos_loop].media_id)}'>{$photo_title|truncate:17:"...":true}</b><br>
+      {if $last_photos[last_photos_loop].media_desc != ""}{$last_photos[last_photos_loop].media_desc|truncate:25:"...":true}<br>{/if}</a>
+	{$datetime->time_since($last_photos[last_photos_loop].media_date)}
+      </td>
+      </tr>
+      </table>
+    {/section}
+  </td>
+  </tr>
+  </table>
+{/if}
+{* END LAST PHOTOS *}
+
+
+3. Готово )))

@@ -1,0 +1,155 @@
+ЕСЛИ ВАМ ВПАДЛО ПРОДЕЛЫВАТЬ ВСЕ ЭТИ ОПЕРАЦИИ ТО ПРОСТО СКОПИРУЙТЕ ФАЙЛЫ ИЗ ПАПКИ ВПАДЛО К СЕБЕ НА СЕРВЕР
+
+Инструкция по установке смайлов в ЛС 
+Заливаем папку images на сервер
+
+1. Открываем файл \include\class_user.php в этом файле находим код
+
+
+// CREATE AN OBJECT FOR MESSAGE AUTHOR/RECIPIENT 
+          $pm_user = new se_user(); 
+          $pm_user->user_info[user_id] = $message_info[user_id]; 
+          $pm_user->user_info[user_username] = $message_info[user_username]; 
+          $pm_user->user_info[user_photo] = $message_info[user_photo];  
+Ниже вставляем 
+
+
+    $asconf['smiles'] = "baffled,biggrin,confused,cool,dull,eek,growl,nerd,no,oo,redface,rofl,rolleyes,sad,sorry,tongue,wink,yes"; 
+        $find = array(); 
+        $replace = array(); 
+
+              $smilies_arr = explode(",", $asconf['smiles']); 
+            foreach($smilies_arr as $smile) 
+              { 
+                        $smile = trim($smile); 
+                        $find = ':'.$smile.':'; 
+                        $replace = '<img alt="'.$smile.'" src="./images/smilies_pm/'.$smile.'.gif" border=0>'; 
+                        $message_info[pm_body] = eregi_replace("$find", "$replace", $message_info[pm_body]); 
+              }  
+2. Открываем файл \user_messages_new.php в нем ищем 
+
+
+// GET LIST OF FRIENDS FOR SUGGEST BOX 
+$total_friends = $user->user_friend_total(0); 
+$friends = $user->user_friend_list(0, $total_friends, 0);  
+Ниже вставляем 
+
+
+// CRANK SMILES START // 
+$asconf['smiles'] = "baffled,biggrin,confused,cool,dull,eek,growl,nerd,no,oo,redface,rofl,rolleyes,sad,sorry,tongue,wink,yes"; 
+$i = 0; 
+$smilies = explode(",", $asconf['smiles']); 
+        foreach($smilies as $smile) { 
+            $i++; $smile = trim($smile); 
+            $outsmile .= "<img style=\"border: 0; cursor: pointer;\" src=\"./images/smilies_pm/$smile.gif\" alt=\"$smile\" onclick=\"addsmiley(':$smile:')\" />"; } 
+// CRANK SMILES END //  
+В этом же файле ищем 
+
+
+$smarty->assign('subject', $subject);  
+Ниже вставляем 
+
+
+$smarty->assign('smiles', $outsmile);  
+3. Открываем файл \user_messages_view.php в нем ищем 
+
+
+    // CREATE AN OBJECT FOR MESSAGE AUTHOR/RECIPIENT 
+    $pm_author = new se_user(); 
+    $pm_author->user_info[user_id] = $convo_message[user_id]; 
+    $pm_author->user_info[user_username] = $convo_message[user_username]; 
+    $pm_author->user_info[user_photo] = $convo_message[user_photo];  
+Ниже вставляем 
+
+
+        $asconf['smiles'] = "baffled,biggrin,confused,cool,dull,eek,growl,nerd,no,oo,redface,rofl,rolleyes,sad,sorry,tongue,wink,yes"; 
+        $find = array(); 
+        $replace = array(); 
+
+              $smilies_arr = explode(",", $asconf['smiles']); 
+            foreach($smilies_arr as $smile) 
+              { 
+                        $smile = trim($smile); 
+                        $find = ':'.$smile.':'; 
+                        $replace = '<img alt="'.$smile.'" src="./images/smilies_pm/'.$smile.'.gif" border=0>'; 
+                        $convo_message[pm_body] = eregi_replace("$find", "$replace", $convo_message[pm_body]); 
+              }  
+В этом же файле ищем 
+
+
+// DELETE MESSAGE IF REQUESTED 
+if($task == "delete") { 
+  if($pm_inbox == 1) { 
+    $database->database_query("UPDATE se_pms SET pm_status='2' WHERE pm_id='$pm_info[pm_id]' AND pm_user_id='".$user->user_info[user_id]."'"); 
+    $database->database_query("DELETE FROM se_pms WHERE pm_status='2' AND pm_outbox='0'"); 
+    header("Location: user_messages.php"); 
+    exit(); 
+  } else { 
+    $database->database_query("UPDATE se_pms SET pm_outbox='0' WHERE pm_id='$pm_info[pm_id]' AND pm_authoruser_id='".$user->user_info[user_id]."'"); 
+    $database->database_query("DELETE FROM se_pms WHERE pm_status='2' AND pm_outbox='0'"); 
+    header("Location: user_messages_outbox.php"); 
+    exit(); 
+  } 
+
+}  
+Ниже вставляем 
+
+
+// CRANK SMILES START // 
+        $asconf['smiles'] = "baffled,biggrin,confused,cool,dull,eek,growl,nerd,no,oo,redface,rofl,rolleyes,sad,sorry,tongue,wink,yes"; 
+        $find = array(); 
+        $replace = array(); 
+
+              $smilies_arr = explode(",", $asconf['smiles']); 
+            foreach($smilies_arr as $smile) 
+              { 
+                        $smile = trim($smile); 
+                        $find = ':'.$smile.':'; 
+                        $replace = '<img alt="'.$smile.'" src="./images/smilies_pm/'.$smile.'.gif" border=0>'; 
+                        $pm_info[pm_body] = eregi_replace("$find", "$replace", $pm_info[pm_body]); 
+              }  
+
+
+
+4. Открываем файл \templates\user_messages_new.tpl в нем ищем 
+
+
+{include file='header.tpl'}  
+Ниже вставляем 
+
+
+{literal}
+<script type='text/javascript'>
+
+function addsmiley(code)  {
+  var pretext = document.forms['message_form'].message.value;
+  this.code = code;
+  document.forms['message_form'].message.value = pretext + code;
+  }
+
+</script>
+{/literal}
+В этом же файле ищем код
+
+
+<form action='user_messages_new.php' method='POST'>
+И заменяем его на этот 
+
+<form id='message_form' action='user_messages_new.php' method='POST'>
+Далее в этом же файле ищем 
+
+
+<tr>
+<td class='form1'>{$user_messages_new11}</td>
+<td class='form2'><input type='text' class='text' name='subject' tabindex='2' value='{$subject}' size='30' maxlength='250' onfocus="hidediv('suggest');"></td>
+</tr>
+Ниже вставляем 
+
+
+<tr>
+<td class='form1'>Смайлы:</td>
+<td class='form2'>{$smiles}</td>
+</tr>
+
+
+З.Ы. Вроде не чего не забыл 

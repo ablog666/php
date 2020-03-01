@@ -1,0 +1,54 @@
+Автор: Passtor (c) 2008
+www.Passtor.ru
+
+1. Заливаем все файлы на ваш сайт.
+2. Открываем файл: home.php, перед: // ASSIGN SMARTY VARIABLES AND INCLUDE FOOTER 
+   вставляем код:
+
+// COMMENTS v.1.2 (C) PASSTOR
+include('include/class_comments.php');
+$comments = new se_comments();
+$comments_array = $comments -> ShowHome();
+$smarty->assign('comments', $comments_array);
+// END OF COMMENTS
+
+
+3. Открываем файл: templates/home.tpl, перед: {* END RIGHT COLUMN *}   
+   вставляем код:
+
+{* SHOW LAST COMMENTS *}
+<table cellpadding='0' cellspacing='0' class='portal_table' align='center' width='100%'>
+<tr><td class='header'>Новые комментарии &nbsp;&nbsp;&nbsp;[<a href='comments.php'>Все комментарии</a>]</td></tr>
+<tr>
+<td class='portal_box'>
+{* LOOP THROUGH COMMENTS *}
+{section name=comment_loop loop=$comments}
+<div id='comment_{math equation='t-c' t=$comments|@count c=$smarty.section.comment_loop.index}'>
+<table cellpadding='0' cellspacing='0' width='100%'>
+<tr>
+<td class='profile_item1' width='80'>
+{if $comments[comment_loop].comment_author->user_info.user_id != 0}
+<a href='{$url->url_create('profile',$comments[comment_loop].comment_author->user_info.user_username)}'><img src='{$comments[comment_loop].comment_author->user_photo('./images/nophoto.gif')}' class='photo' border='0' width='{$misc->photo_size($comments[comment_loop].comment_author->user_photo('./images/nophoto.gif'),'75','75','w')}'></a>
+{else}
+<img src='./images/nophoto.gif' class='photo' border='0' width='75'>
+{/if}
+</td>
+<td class='profile_item2'>
+<table cellpadding='0' cellspacing='0' width='100%'>
+<tr>
+<td class='profile_comment_author'><b>{if $comments[comment_loop].comment_author->user_info.user_id != 0}<a href='{$url->url_create('profile',$comments[comment_loop].comment_author->user_info.user_username)}'>{$comments[comment_loop].comment_author->user_info.user_username}</a>{/if}</b> - {$datetime->cdate("`$setting.setting_timeformat` `$profile20` `$setting.setting_dateformat`", $datetime->timezone($comments[comment_loop].comment_date, $global_timezone))}</td>
+<td class='profile_comment_author' align='right' nowrap='nowrap'>&nbsp;{$comments[comment_loop].comment_desc}</td>
+</tr>
+<tr>
+<td colspan='2' class='profile_comment_body'>{$comments[comment_loop].comment_body|choptext:50:"<br>"}</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+{/section}
+</td>
+</tr>
+</table>
+{* END OF LAST COMMENTS *}

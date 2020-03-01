@@ -1,0 +1,140 @@
+/* classified */
+div.classified1 {
+	padding: 10px;
+	background: #F3F3F3;
+	border: 1px solid #DDDDDD;
+}
+div.classified_search {
+	padding: 10px;
+	background: #F5F5F5;
+	border: 1px solid #CCCCCC;
+	margin-bottom: 15px;
+}
+table.classified_table {
+	border: 1px solid #CCCCCC;
+}
+td.classified_header {
+	background: #DFECF8;
+	font-weight: bold;
+	padding: 5px;	
+}
+td.classified_photo {
+	padding: 5px 10px 0px 5px;
+}
+td.classified_entry {
+	background: #FFFFFF;
+	border-top: 1px solid #DDDDDD;
+	padding: 5px;
+	vertical-align: middle;
+}
+div.classified_entry1 {
+	background: #F3F3F3;
+	padding: 8px 10px 10px 10px;
+}
+div.classified_entry2 {
+	background: #FFFFFF;
+	padding: 8px 10px 10px 10px;
+}
+div.classified_title {
+	font-weight: bold;
+	font-size: 10pt;
+}
+div.classified_date, div.classified_category {
+	font-size: 8pt;
+	color: #777777;
+}
+div.classified_body {
+	padding-top: 10px;
+}
+td.classified_comment_author {
+	margin-bottom: 5px;
+	background: #F1F1F1;
+	padding: 5px 7px 5px 7px;
+}
+td.classified_comment_body {
+	padding: 5px 7px 0px 7px;
+}
+div.classified_bar {
+	border-bottom: 1px solid #DDDDDD;
+	padding: 0px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+td.classified_item1 {
+	padding: 5px;
+	text-align: center;
+	vertical-align: top;
+}
+td.classified_item2 {
+	padding: 5px 5px 5px 5px;
+	vertical-align: top;
+}
+td.classified_options {
+	padding: 5px 5px 5px 5px; 
+	font-weight: bold; 
+
+}
+div.classified_settings {
+	padding: 10px;
+	padding-left: 0px;
+	background: #FFFFFF;
+}
+div.classified_settings_link {
+	padding: 5px;
+	padding-left: 0px;
+	background: #FFFFFF;
+}
+td.classified_postcomment {
+	padding: 10px;
+	border: 1px solid #DDDDDD;
+	border-top: none;
+	background: #F5F5F5;
+}
+td.classified {
+	background: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	border-top: none;
+	padding: 5px 7px 5px 7px;
+	margin-bottom: 12px;
+}
+div.profile_classified {
+	padding: 5px 2px 0px 2px;
+	font-weight: bold;
+}
+div.profile_classified_date {
+	padding-left: 25px;
+	color: #666666;
+	margin-bottom: 5px;
+}
+td.classified_box {
+	border: 1px solid #DDDDDD;
+	border-top: none;
+	padding: 10px;
+}
+td.classified_uploadform {
+	padding: 15px;
+	text-align: top;
+}
+div.classified_uploadform_label {
+	margin-bottom: 5px; 
+	font-weight: bold;
+}
+div.classified_uploadform {
+	border: 1px dashed #CCCCCC; 
+	text-align: center; 
+	width: 300px; 
+	height: 225px;
+}
+div.classified_uploadform_uploading {
+	border: 1px dashed #CCCCCC; 
+	text-align: center; 
+	width: 300px; 
+	height: 225px;
+}
+div.classified_spacer {
+	font-size: 1pt; 
+	margin: 10px 0px 10px 0px;
+}
+div.classified_fields {
+	margin-top: 5px;
+}

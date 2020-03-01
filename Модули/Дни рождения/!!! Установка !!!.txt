@@ -1,0 +1,116 @@
+1. Заливаем все файлы на сайт.
+
+2. Открываем файл profile.php 
+перед // ASSIGN VARIABLES AND INCLUDE FOOTER 
+
+вставляем код:
+
+// BIRTHDAYS by PASSTOR
+include 'include/class_birthdays.php';
+$bday = new Birthdays($owner->user_info[user_id]);
+$t_flag = $bday -> IsUserBirthday();
+$t_flag = ($owner -> user_info[user_id] != $user -> user_info[user_id]) ? $t_flag : 0;
+$smarty->assign('bday_flag', $t_flag);
+// END OF BIRTHDAYS
+
+
+3. Открываем файл profile.tpl перед:  {* SHOW BUTTONS IF LOGGED IN AND VIEWING SOMEONE ELSE *}    
+вставляем код:
+
+  {* BIRTHDAY NOTICE *}
+  {if $bday_flag == 1}
+    <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
+    <tr><td class='header'>Уведомление</td></tr>
+    <td class='profile'>У {$owner->user_info.user_username} сегодня день рождения.</td>
+    </tr>
+    </table>
+  {/if}
+
+4. Открываем файл user_home.php
+перед: // ASSIGN SMARTY VARS AND INCLUDE FOOTER   
+вставляем код:
+
+// BIRTHDAYS by PASSTOR
+include 'include/class_birthdays.php';
+$bday = new Birthdays($user->user_info[user_id]);
+$t_flag = $bday -> IsUserBirthday();
+$t_f_brths =  $bday -> IsFriendBirthday();
+list($t_arr, $t_desc, $t_showdate) = $bday -> SmartFeed();
+
+foreach($t_arr as $t_uid)
+{
+		$t_info = $bday -> GetProfile($t_uid);
+		$t_user = new se_user();
+		$t_user -> user_info[user_id] = $t_uid;
+		$t_user -> user_info[user_username] = $t_info['user_username'];
+		$t_user -> user_info[user_photo] = $t_info['user_photo'];
+		$t_date = ($t_showdate == 1) ? $t_info['date'] : '';
+		$t_users_array[] = array('user' => $t_user, 'desc' => $t_desc, 'date' => $t_date);
+}
+$smarty->assign('bday_flag', $t_flag);
+$smarty->assign('bday_friends', $t_f_brths);
+$smarty->assign('bday_users', $t_users_array);
+// END MY BIRTHDAYS
+
+5. Открываем файл user_home.tpl
+a) перед
+
+ </td>
+{* BEGIN MIDDLE COLUMN *}
+
+вставляем код:
+
+    {* BIRTHDAY INFO *}
+    <table cellpadding='0' cellspacing='0' class='portal_table' align='center' width='100%'>
+    <tr><td class='header'>День рождения</td></tr>
+    <tr>
+    <td class='home_box'>
+    {if $bday_users != 0}
+    {section name=bday_users_loop loop=$bday_users max=1 }
+    &#149; {$bday_users[bday_users_loop].desc}:<br>
+    {cycle name="startrow7" values="<div align='center'>"}
+    <a href='{$url->url_create('profile',$bday_users[bday_users_loop].user->user_info.user_username)}'>
+   {$bday_users[bday_users_loop].user->user_info.user_username|truncate:15}<br>
+    <img src='{$bday_users[bday_users_loop].user->user_photo('./images/nophoto.gif')}'class='photo' 
+    width='{$misc->photo_size($bday_users[bday_users_loop].user->user_photo('./images/nophoto.gif'),'90','90','w')}'     border='0'></a><br>
+    {$bday_users[bday_users_loop].date}
+    {cycle name="endrow7" values="</div>"}
+    {/section}
+    {else}
+    Нет ближайших дней рождений пользователей.
+    {/if}
+    <br>
+    <div align='center'>[ <a href='birthdays.php'>Подробнее</a> ]</div>
+    </td>
+    </tr>
+    </table>
+
+б) после
+{* BEGIN MIDDLE COLUMN *}
+<td class='home_middle'>
+
+вставляем код:
+
+  {* BIRTHDAY GREETING *}
+  {if $bday_flag == 1}
+  <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
+  <tr><td class='home_header'>C Днем Рождения!</td></tr>
+  <td class='home_box'>
+  Уважаемый(ая) <b>{$user->user_info.user_username}</b>!<br>
+  Администрация сайта поздравляет Вас с днем рождения!
+  </td>
+  </tr>
+  </table>
+  {/if}
+
+в) перед  {* SHOW NEW MESSAGE NOTIFICATION *}  
+вставляем код:
+
+   {* SHOW FRIEND'S BIRTHDAY NOTIFICATION *}
+    {if $bday_friends > 0}
+    <div style='margin-bottom: 5px;'><img src='./images/icons/user16.gif' border='0' class='icon'> У
+    {if $bday_friends|@count == 1} вашего друга {else} ваших друзей:{/if}
+     {section name=bday_loop loop=$bday_friends}
+     <a href='{$url->url_create('profile',$bday_friends[bday_loop])}'>{$bday_friends[bday_loop]}</a>{if $smarty.section.bday_loop.last != 1}, {/if}
+     {/section} сегодня день рождения.</div>
+    {/if}
